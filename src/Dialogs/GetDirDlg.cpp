@@ -65,7 +65,7 @@ void wxGetDirDlg::CreateControls()
     while (tkz.HasMoreTokens() )
         {
         wxString currentFilter = tkz.GetNextToken();
-        if (currentFilter.Length() && currentFilter[0] != wxT('*'))
+        if (currentFilter.length() && currentFilter[0] != wxT('*'))
             { choiceStrings.Add(currentFilter); }
         }
     m_fileFilterCombo = new wxChoice(this, wxID_ANY, wxDefaultPosition, wxSize(FromDIP(wxSize(100,100)).GetWidth(),-1), choiceStrings,

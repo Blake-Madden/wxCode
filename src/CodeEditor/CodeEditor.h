@@ -125,29 +125,29 @@ public:
         { m_defaultHeader = header; }
     /// @returns The default header being included in all new scripts.
     /// @sa SetDefaultHeader().
-    const wxString& GetDefaultHeader() const
+    const wxString& GetDefaultHeader() const noexcept
         { return m_defaultHeader; }
     /** For autocompletion, this sets the character that divides a library/namespace from its
         member classes/functions.
         @param ch The separator character.*/
-    void SetLibraryAccessor(const wxChar ch)
+    void SetLibraryAccessor(const wxChar ch) noexcept
         { m_libraryAccessor = ch; }
     /// @returns The separator between libraries/namespaces and their member classes/functions.
-    wxChar GetLibraryAccessor() const
+    wxChar GetLibraryAccessor() const noexcept
         { return m_libraryAccessor; }
     /** For autocompletion, this sets the character that divides an object from its member functions.
         @param ch The separator character.*/
-    void SetObjectAccessor(const wxChar ch)
+    void SetObjectAccessor(const wxChar ch) noexcept
         { m_objectAccessor = ch; }
     /// @returns The separator between objects and their member functions.
-    wxChar GetObjectAccessor() const
+    wxChar GetObjectAccessor() const noexcept
         { return m_objectAccessor; }
     /** Sets the file filter for the Open dialog.
         @param filter The file filter.*/
-    void SetFileFilter(const wxString& filter)
+    void SetFileFilter(const wxString& filter) noexcept
         { m_fileFilter = filter; }
     /// @returns The file filter used when opening a script.
-    const wxString& GetFileFilter() const
+    const wxString& GetFileFilter() const noexcept
         { return m_fileFilter; }
 private:
     struct wxStringCmpNoCase
@@ -158,7 +158,7 @@ private:
     struct wxStringPartialCmpNoCase
         {
         bool operator()(const wxString& s1, const wxString& s2) const
-            { return s1.CmpNoCase(s2.Mid(0,s1.Length())) < 0; }
+            { return s1.CmpNoCase(s2.Mid(0,s1.length())) < 0; }
         };
 
     static bool SplitFunctionAndParams(wxString& function, wxString& params);

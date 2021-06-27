@@ -16,6 +16,7 @@
 #include <wx/textdlg.h>
 #include <wx/combobox.h>
 #include <wx/tooltip.h>
+#include "../../../i18n-check/src/donttranslate.h"
 #include "DialogWithHelp.h"
 
 /** @brief Dialog for specifying headers and footers for printing.
@@ -70,45 +71,35 @@ public:
                       leftFooterPrinterCombo(nullptr),
                       centerFooterPrinterCombo(nullptr),
                       rightFooterPrinterCombo(nullptr)
-        { Create(parent, id, caption, pos, size, style); }
-
-    /** Creation step.
-        @param parent The parent window.
-        @param id The window ID.
-        @param caption The title of the export dialog.
-        @param pos The screen position of the window.
-        @param size The window size.
-        @param style The window style(i.e., decorations and flags).
-        @returns True upon successful creation.*/
-    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& caption = _("Printer Headers & Footers"),
-                const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-                long style = wxDEFAULT_DIALOG_STYLE|wxCLIP_CHILDREN|wxRESIZE_BORDER)
         {
         SetExtraStyle(GetExtraStyle()|wxWS_EX_BLOCK_EVENTS|wxDIALOG_EX_METAL);
         wxDialogWithHelp::Create(parent, id, caption, pos, size, style);
 
         CreateControls();
         Centre();
-        return true;
         }
+    wxPrinterHeaderFooterDlg(const wxPrinterHeaderFooterDlg&) = delete;
+    wxPrinterHeaderFooterDlg(wxPrinterHeaderFooterDlg&&) = delete;
+    wxPrinterHeaderFooterDlg& operator=(const wxPrinterHeaderFooterDlg&) = delete;
+    wxPrinterHeaderFooterDlg& operator=(wxPrinterHeaderFooterDlg&&) = delete;
 
     /// @returns The left header.
-    const wxString& GetLeftPrinterHeader() const
+    const wxString& GetLeftPrinterHeader() const noexcept
         { return m_leftPrinterHeader; }
     /// @returns The center header.
-    const wxString& GetCenterPrinterHeader() const
+    const wxString& GetCenterPrinterHeader() const noexcept
         { return m_centerPrinterHeader; }
     /// @returns The right header.
-    const wxString& GetRightPrinterHeader() const
+    const wxString& GetRightPrinterHeader() const noexcept
         { return m_rightPrinterHeader; }
     /// @returns The left footer.
-    const wxString& GetLeftPrinterFooter() const
+    const wxString& GetLeftPrinterFooter() const noexcept
         { return m_leftPrinterFooter; }
     /// @returns The center footer.
-    const wxString& GetCenterPrinterFooter() const
+    const wxString& GetCenterPrinterFooter() const noexcept
         { return m_centerPrinterFooter; }
     /// @returns The right footer.
-    const wxString& GetRightPrinterFooter() const
+    const wxString& GetRightPrinterFooter() const noexcept
         { return m_rightPrinterFooter; }
 private:
     void CreateControls();
@@ -139,7 +130,6 @@ private:
     wxComboBox* centerFooterPrinterCombo{ nullptr };
     wxComboBox* rightFooterPrinterCombo{ nullptr };
 
-    wxDECLARE_NO_COPY_CLASS(wxPrinterHeaderFooterDlg);
     wxDECLARE_EVENT_TABLE();
     };
 

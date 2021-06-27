@@ -66,9 +66,16 @@ public:
         {
         m_options.m_toRow = rowCount;
         m_options.m_toColumn = columnCount;
-        Create(parent, id, caption, pos, size, style);
-        }
+        SetExtraStyle(GetExtraStyle() | wxWS_EX_BLOCK_EVENTS | wxWS_EX_CONTEXTHELP);
+        wxDialogWithHelp::Create(parent, id, caption, pos, size, style);
 
+        CreateControls();
+        Centre();
+        }
+    wxListCtrlExportDlg(const wxListCtrlExportDlg&) = delete;
+    wxListCtrlExportDlg(wxListCtrlExportDlg&&) = delete;
+    wxListCtrlExportDlg& operator=(const wxListCtrlExportDlg&) = delete;
+    wxListCtrlExportDlg& operator=(wxListCtrlExportDlg&&) = delete;
     /// @returns True if user requested page breaks in the output.
     [[nodiscard]] bool IsIncludingPageBreaks() const noexcept
         { return m_options.m_includePageBreaks; }
@@ -121,18 +128,7 @@ public:
         { return m_options; }
 private:
     wxListCtrlExportDlg() noexcept {}
-    /** Creates the dialog.*/
-    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& caption = _("List Export Options"),
-                const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-                long style = wxDEFAULT_DIALOG_STYLE|wxCLIP_CHILDREN)
-        {
-        SetExtraStyle(GetExtraStyle()|wxWS_EX_BLOCK_EVENTS|wxWS_EX_CONTEXTHELP);
-        wxDialogWithHelp::Create( parent, id, caption, pos, size, style );
 
-        CreateControls();
-        Centre();
-        return true;
-        }
     void CreateControls();
     void OnOK([[maybe_unused]] wxCommandEvent& event);
     void OnExportSelectedRows([[maybe_unused]] wxCommandEvent& event);
@@ -155,7 +151,6 @@ private:
 
     static constexpr int ID_SELECTED_ROW_CHECKBOX = 10001;
 
-    wxDECLARE_NO_COPY_CLASS(wxListCtrlExportDlg);
     wxDECLARE_EVENT_TABLE();
     };
 

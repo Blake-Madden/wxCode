@@ -46,7 +46,7 @@ public:
         }
 
     /// @returns The path of the selected archive file.
-    [[nodiscard]] const wxString& GetPath() const
+    [[nodiscard]] const wxString& GetPath() const noexcept
         { return m_filePath; }
     /** Sets the path of the default selected file.
         @param path The default file path to select.*/

@@ -34,15 +34,15 @@ void wxPrinterHeaderFooterDlg::OnOK([[maybe_unused]] wxCommandEvent& event)
 //-------------------------------------------------------------
 wxString wxPrinterHeaderFooterDlg::ConvertPrinterCommandToString(const wxString& printerString) const
     {
-    if (printerString == wxT("@TITLE@"))
+    if (printerString == DONTTRANSLATE("@TITLE@", DTExplanation::InternalKeyword))
         { return _("Title"); }
-    else if (printerString == wxT("@DATE@"))
+    else if (printerString == DONTTRANSLATE("@DATE@", DTExplanation::InternalKeyword))
         { return _("Date"); }
-    else if (printerString == wxT("@TIME@"))
+    else if (printerString == DONTTRANSLATE("@TIME@", DTExplanation::InternalKeyword))
         { return _("Time"); }
-    else if (printerString == wxT("@PAGENUM@"))
+    else if (printerString == DONTTRANSLATE("@PAGENUM@", DTExplanation::InternalKeyword))
         { return _("Page #"); }
-    else if (printerString == wxT("Page @PAGENUM@ of @PAGESCNT@"))
+    else if (printerString == DONTTRANSLATE("Page @PAGENUM@ of @PAGESCNT@", DTExplanation::InternalKeyword))
         { return _("Page # of #"); }
     else if (printerString == wxEmptyString)
         { return _("None"); }
@@ -54,15 +54,15 @@ wxString wxPrinterHeaderFooterDlg::ConvertPrinterCommandToString(const wxString&
 wxString wxPrinterHeaderFooterDlg::ConvertStringToPrinterCommand(const wxString& printerString) const
     {
     if (printerString == _("Title"))
-        { return wxT("@TITLE@"); }
+        { return DONTTRANSLATE("@TITLE@", DTExplanation::InternalKeyword); }
     else if (printerString == _("Date"))
-        { return wxT("@DATE@"); }
+        { return DONTTRANSLATE("@DATE@", DTExplanation::InternalKeyword); }
     else if (printerString == _("Time"))
-        { return wxT("@TIME@"); }
+        { return DONTTRANSLATE("@TIME@", DTExplanation::InternalKeyword); }
     else if (printerString == _("Page #"))
-        { return wxT("@PAGENUM@"); }
+        { return DONTTRANSLATE("@PAGENUM@", DTExplanation::InternalKeyword); }
     else if (printerString == _("Page # of #"))
-        { return wxT("Page @PAGENUM@ of @PAGESCNT@"); }
+        { return DONTTRANSLATE("Page @PAGENUM@ of @PAGESCNT@", DTExplanation::InternalKeyword); }
     else if (printerString == _("None"))
         { return wxEmptyString; }
     else

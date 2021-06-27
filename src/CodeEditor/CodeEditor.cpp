@@ -63,7 +63,7 @@ void wxCodeEditor::SetLanguage(const int lang)
         SetLexer(lang);
         SetKeyWords(0, "and break do else elseif end false for function if in local nil not or repeat return then true until while");
         // other language settings
-        SetFileFilter(L"Lua (*.lua)|*.lua");
+        SetFileFilter(_("Lua Script (*.lua)|*.lua"));
         SetLibraryAccessor(L'.');
         SetObjectAccessor(L':');
         }
@@ -126,7 +126,7 @@ void wxCodeEditor::Open()
 
 void wxCodeEditor::Save()
     {
-    if (GetScriptFilePath().IsEmpty())
+    if (GetScriptFilePath().empty())
         {
         wxFileDialog dialogSave
                 (this, _("Save Script As"),
@@ -185,7 +185,7 @@ void wxCodeEditor::FindPrevious(const wxString& textToFind, const int searchFlag
         foundPos = SearchPrev(searchFlags, textToFind);
         if (foundPos != wxSTC_INVALID_POSITION)
             {
-            SetSelection(foundPos,foundPos+textToFind.Length());
+            SetSelection(foundPos,foundPos+textToFind.length());
             EnsureCaretVisible();
             }
         else
@@ -193,7 +193,7 @@ void wxCodeEditor::FindPrevious(const wxString& textToFind, const int searchFlag
         }
     else if (foundPos != wxSTC_INVALID_POSITION)
         {
-        SetSelection(foundPos,foundPos+textToFind.Length());
+        SetSelection(foundPos,foundPos+textToFind.length());
         EnsureCaretVisible();
         }
     // not found going forward, so start from beginning and try from there
@@ -212,12 +212,12 @@ void wxCodeEditor::FindNext(const wxString& textToFind, const int searchFlags /*
     int foundPos = SearchNext(searchFlags, textToFind);
     if (foundPos == selStart)
         {
-        SetSelection(foundPos+textToFind.Length(),foundPos+textToFind.Length());
+        SetSelection(foundPos+textToFind.length(),foundPos+textToFind.length());
         SearchAnchor();
         foundPos = SearchNext(searchFlags, textToFind);
         if (foundPos != wxSTC_INVALID_POSITION)
             {
-            SetSelection(foundPos,foundPos+textToFind.Length());
+            SetSelection(foundPos,foundPos+textToFind.length());
             EnsureCaretVisible();
             }
         else
@@ -225,7 +225,7 @@ void wxCodeEditor::FindNext(const wxString& textToFind, const int searchFlags /*
         }
     else if (foundPos != wxSTC_INVALID_POSITION)
         {
-        SetSelection(foundPos,foundPos+textToFind.Length());
+        SetSelection(foundPos,foundPos+textToFind.length());
         EnsureCaretVisible();
         }
     // not found going forward, so start from beginning and try from there
@@ -234,7 +234,7 @@ void wxCodeEditor::FindNext(const wxString& textToFind, const int searchFlags /*
         foundPos = FindText(0, GetLength(), textToFind, searchFlags);
         if (foundPos != wxSTC_INVALID_POSITION)
             {
-            SetSelection(foundPos,foundPos+textToFind.Length());
+            SetSelection(foundPos,foundPos+textToFind.length());
             EnsureCaretVisible();
             }
         else
@@ -366,12 +366,12 @@ void wxCodeEditor::OnCharAdded(wxStyledTextEvent &event)
             }
         // might be a variable, look for where it was first assigned to something
         int foundPos = 0;
-        while (foundPos+lastWord.Length()+2 < static_cast<size_t>(wordStart))
+        while (foundPos+lastWord.length()+2 < static_cast<size_t>(wordStart))
             {
             foundPos = FindText(foundPos, wordStart, lastWord, wxSTC_FIND_WHOLEWORD|wxSTC_FIND_MATCHCASE);
-            if (foundPos != wxSTC_INVALID_POSITION && foundPos+lastWord.Length()+2 < static_cast<size_t>(wordStart))
+            if (foundPos != wxSTC_INVALID_POSITION && foundPos+lastWord.length()+2 < static_cast<size_t>(wordStart))
                 {
-                foundPos += lastWord.Length();
+                foundPos += lastWord.length();
                 while (foundPos < GetLength() && GetCharAt(foundPos) == L' ')
                     { ++foundPos; }
                 // found an assignment to this variable
@@ -404,7 +404,7 @@ void wxCodeEditor::OnCharAdded(wxStyledTextEvent &event)
         const int wordStart = WordStartPosition(GetCurrentPos(), true);
         const wxString lastWord = GetTextRange(wordStart, GetCurrentPos());
 
-        if (lastWord.Length())
+        if (lastWord.length())
             {
             // see if we are inside a library, if so show its list of functions
             if (wordStart > 2 && GetCharAt(wordStart-1) == GetLibraryAccessor())
@@ -416,7 +416,7 @@ void wxCodeEditor::OnCharAdded(wxStyledTextEvent &event)
                     if (AutoCompActive())
                         { AutoCompSelect(lastWord); }
                     else
-                        { AutoCompShow(lastWord.Length(), pos->second); }
+                        { AutoCompShow(lastWord.length(), pos->second); }
                     }
                 }
             // if an object...
@@ -441,7 +441,7 @@ void wxCodeEditor::OnCharAdded(wxStyledTextEvent &event)
                             if (AutoCompActive())
                                 { AutoCompSelect(lastWord); }
                             else
-                                { AutoCompShow(lastWord.Length(), libraryPos->second); }
+                                { AutoCompShow(lastWord.length(), libraryPos->second); }
                             }
                         }
                     }
@@ -458,22 +458,22 @@ void wxCodeEditor::OnCharAdded(wxStyledTextEvent &event)
                     }
                 // if found a full keyword, then just fix its case and let it auto-highlight
                 if (pos != m_libaryAndClassNames.end() &&
-                    foundKeyword.Length() == lastWord.Length())
+                    foundKeyword.length() == lastWord.length())
                     {
-                    SetSelection(wordStart,wordStart+lastWord.Length());
+                    SetSelection(wordStart,wordStart+lastWord.length());
                     // tooltip the parameters (if applicable)
-                    if (params.Length())
+                    if (params.length())
                         {
                         foundKeyword += L"(";
                         ReplaceSelection(foundKeyword);
-                        SetSelection(wordStart+foundKeyword.Length(), wordStart+foundKeyword.Length());
+                        SetSelection(wordStart+foundKeyword.length(), wordStart+foundKeyword.length());
                         params += L")";
                         CallTipShow(GetCurrentPos(), params);
                         }
                     else
                         {
                         ReplaceSelection(foundKeyword);
-                        SetSelection(wordStart+foundKeyword.Length(), wordStart+foundKeyword.Length());
+                        SetSelection(wordStart+foundKeyword.length(), wordStart+foundKeyword.length());
                         }
                     AutoCompCancel();
                     }
@@ -483,7 +483,7 @@ void wxCodeEditor::OnCharAdded(wxStyledTextEvent &event)
                     if (AutoCompActive())
                         { AutoCompSelect(lastWord); }
                     else
-                        { AutoCompShow(lastWord.Length(), m_libaryAndClassNamesStr); }
+                        { AutoCompShow(lastWord.length(), m_libaryAndClassNamesStr); }
                     }
                 else
                     { AutoCompCancel(); }
@@ -507,7 +507,7 @@ void wxCodeEditor::OnAutoCompletionSelected(wxStyledTextEvent &event)
     if (hasParams)
         { selectedString += L"("; }
     ReplaceSelection(selectedString);
-    SetSelection(wordStart+selectedString.Length(), wordStart+selectedString.Length());
+    SetSelection(wordStart+selectedString.length(), wordStart+selectedString.length());
     AutoCompCancel();
     if (hasParams)
         {

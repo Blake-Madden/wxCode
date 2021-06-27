@@ -116,13 +116,13 @@ public:
     /// Same thing with the colour: this affects the text color.
     /// @param colour The color to use.
     /// @returns True upon success.
-    virtual bool SetForegroundColour(const wxColour& colour) final;
+    bool SetForegroundColour(const wxColour& colour) final;
 
 protected:
     /// @returns wxBORDER_NONE.
     /// info bar shouldn't have any border by default, the colour difference
     /// between it and the main window separates it well enough.
-    virtual wxBorder GetDefaultBorder() const final { return wxBORDER_NONE; }
+    wxBorder GetDefaultBorder() const final { return wxBORDER_NONE; }
 
     /// Updates the parent to take our new or changed size into account (notably
     /// should be called when we're shown or hidden)
