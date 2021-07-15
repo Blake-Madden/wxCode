@@ -24,7 +24,7 @@
     will handle loading that language's keywords, lexer, highlighting, class & library separators (for autocompletion),
     and file filter.
 
-    This editor offers a simplified interface for loaring a list of functions and libraries/classes
+    This editor offers a simplified interface for loading a list of functions and libraries/classes
     (with sub-functions) that will then be recognized by autocompletion and highlighter.
 
     Also included is built-in file opening and saving support, as well as simplified searching functions.
@@ -78,7 +78,7 @@ public:
          For example, `"GetUser()\tUser"` will load a function named `GetUser` with a return type of `User`.
         @sa Finalize().*/
     void AddClass(const wxString& theClass, std::vector<wxString>& functions);
-    /** Adds a vector of function or classe names that the highlighting and auto-completion should recognize.
+    /** Adds a vector of function or class names that the highlighting and auto-completion should recognize.
         @param functions The array of functions to add.
         @sa Finalize().*/
     void AddFunctionsOrClasses(const std::vector<wxString>& functions);

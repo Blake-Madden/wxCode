@@ -40,7 +40,7 @@ public:
             m_fullFileFilter(fullFileFilter), m_isRecursive(true), m_selectedFileFilter(0), m_fileFilterCombo(nullptr)
         {
         SetExtraStyle(GetExtraStyle()|wxWS_EX_BLOCK_EVENTS|wxWS_EX_CONTEXTHELP);
-        wxDialogWithHelp::Create( parent, id, caption, pos, size, style );
+        wxDialogWithHelp::Create(parent, id, caption, pos, size, style);
 
         CreateControls();
         Centre();
