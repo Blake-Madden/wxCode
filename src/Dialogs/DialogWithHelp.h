@@ -35,7 +35,11 @@ public:
 
         Centre();
         }
-    wxDialogWithHelp() noexcept {}
+    wxDialogWithHelp()
+        {
+        Bind(wxEVT_COMMAND_BUTTON_CLICKED, &wxDialogWithHelp::OnHelpClicked, this, wxID_HELP);
+        Bind(wxEVT_HELP, &wxDialogWithHelp::OnContextHelp, this);
+        }
     wxDialogWithHelp(const wxDialogWithHelp&) = delete;
     wxDialogWithHelp(wxDialogWithHelp&&) = delete;
     wxDialogWithHelp& operator=(const wxDialogWithHelp&) = delete;
